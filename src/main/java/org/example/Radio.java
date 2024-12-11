@@ -3,56 +3,70 @@ package org.example;
 public class Radio {
     private int currentStation;
     private int currentVolume;
+    private final int totalStations;
+
+    public Radio(int totalStations) {
+        this.totalStations = totalStations;
+        currentStation = 0;
+        currentVolume = 0;
+    }
+
+    public Radio() {
+        this(10);
+    }
 
     public int getCurrentStation() {
         return currentStation;
     }
 
-    public void setCurrentStation(int stationNumber) {
-        if (stationNumber >= 0 && stationNumber <= 9) {
-            currentStation = stationNumber;
-        } else {
-            System.out.println("Неверный номер станции.");
+    public void setCurrentStation(int newCurrentStation) {
+        if (newCurrentStation < 0 || newCurrentStation >= totalStations) {
+            return;
         }
+        currentStation = newCurrentStation;
     }
 
     public void nextStation() {
-        if (currentStation == 9) {
-            currentStation = 0;
-        } else {
-            currentStation++;
+        int target = currentStation + 1;
+        if (target >= totalStations) {
+            target = 0;
         }
+        currentStation = target;
     }
 
     public void previousStation() {
-        if (currentStation == 0) {
-            currentStation = 9;
-        } else {
-            currentStation--;
+        int target = currentStation - 1;
+        if (target < 0) {
+            target = totalStations - 1;
         }
+        currentStation = target;
     }
 
-    public int getVolume() {
+    public int getCurrentVolume() {
         return currentVolume;
     }
 
-    public void setVolume(int newcurrentVolume) {
-        if (newcurrentVolume >= 0 && newcurrentVolume <= 100) {
-            currentVolume = newcurrentVolume;
-        } else {
-            System.out.println("Уровень громкости вне допустимого диапазона.");
+    public void setCurrentVolume(int newCurrentVolume) {
+        if (newCurrentVolume < 0 || newCurrentVolume > 100) {
+            return;
         }
+        currentVolume = newCurrentVolume;
     }
 
     public void increaseVolume() {
-        if (currentVolume < 100) {
-            currentVolume = currentVolume + 1;
+        int target = currentVolume + 1;
+        if (target > 100) {
+            return;
         }
+        currentVolume = target;
     }
 
     public void decreaseVolume() {
-        if (currentVolume > 0) {
-            currentVolume--;
+        int target = currentVolume - 1;
+        if (target < 0) {
+            return;
         }
+        currentVolume = target;
     }
+
 }

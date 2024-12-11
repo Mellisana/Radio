@@ -168,4 +168,9 @@ public class RadioTest {
 
         Assertions.assertEquals(expected, actual);
     }
-}
+
+    @Test
+    public void shouldNotRestoreIfNoSavedStation() {
+        radio.setCurrentStation(0);         // Устанавливаем текущую станцию на 0
+        radio.restoreLastUsedStation();
+    }
