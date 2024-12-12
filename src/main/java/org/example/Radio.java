@@ -3,70 +3,69 @@ package org.example;
 public class Radio {
     private int currentStation;
     private int currentVolume;
-    private final int totalStations;
+    private int maxStation;
 
-    public Radio(int totalStations) {
-        this.totalStations = totalStations;
-        currentStation = 0;
-        currentVolume = 0;
+    public Radio () {
+        this.maxStation = 9;
     }
 
-    public Radio() {
-        this(10);
+    public Radio (int countStations) {
+        this.maxStation = countStations -1;
     }
 
     public int getCurrentStation() {
         return currentStation;
     }
 
-    public void setCurrentStation(int newCurrentStation) {
-        if (newCurrentStation < 0 || newCurrentStation >= totalStations) {
-            return;
+    public void setCurrentStation(int stationNumber) {
+        if (stationNumber >= 0 && stationNumber <= maxStation) {
+            currentStation = stationNumber;
+        } else {
+            System.out.println("Неверный номер станции.");
         }
-        currentStation = newCurrentStation;
+    }
+
+    public int getMaxStation() {
+        return maxStation;
     }
 
     public void nextStation() {
-        int target = currentStation + 1;
-        if (target >= totalStations) {
-            target = 0;
+        if (currentStation != maxStation) {
+            currentStation++;
+            return;
         }
-        currentStation = target;
+            currentStation = 0;
     }
 
     public void previousStation() {
-        int target = currentStation - 1;
-        if (target < 0) {
-            target = totalStations - 1;
+        if (currentStation != 0) {
+            currentStation --;
+        } else {
+            currentStation = maxStation;
         }
-        currentStation = target;
     }
 
-    public int getCurrentVolume() {
+    public int getVolume() {
         return currentVolume;
     }
 
-    public void setCurrentVolume(int newCurrentVolume) {
-        if (newCurrentVolume < 0 || newCurrentVolume > 100) {
-            return;
+    public void setVolume(int newcurrentVolume) {
+        if (newcurrentVolume >= 0 && newcurrentVolume <= 100) {
+            currentVolume = newcurrentVolume;
+        } else {
+            System.out.println("Уровень громкости вне допустимого диапазона.");
         }
-        currentVolume = newCurrentVolume;
     }
 
     public void increaseVolume() {
-        int target = currentVolume + 1;
-        if (target > 100) {
-            return;
+        if (currentVolume < 100) {
+            currentVolume = currentVolume + 1;
         }
-        currentVolume = target;
     }
 
     public void decreaseVolume() {
-        int target = currentVolume - 1;
-        if (target < 0) {
-            return;
+        if (currentVolume > 0) {
+            currentVolume--;
         }
-        currentVolume = target;
     }
-
 }
