@@ -3,32 +3,45 @@ package org.example;
 public class Radio {
     private int currentStation;
     private int currentVolume;
+    private int maxStation;
+
+    public Radio () {
+        this.maxStation = 9;
+    }
+
+    public Radio (int countStations) {
+        this.maxStation = countStations -1;
+    }
 
     public int getCurrentStation() {
         return currentStation;
     }
 
     public void setCurrentStation(int stationNumber) {
-        if (stationNumber >= 0 && stationNumber <= 9) {
+        if (stationNumber >= 0 && stationNumber <= maxStation) {
             currentStation = stationNumber;
         } else {
             System.out.println("Неверный номер станции.");
         }
     }
 
+    public int getMaxStation() {
+        return maxStation;
+    }
+
     public void nextStation() {
-        if (currentStation == 9) {
-            currentStation = 0;
-        } else {
+        if (currentStation != maxStation) {
             currentStation++;
+            return;
         }
+            currentStation = 0;
     }
 
     public void previousStation() {
-        if (currentStation == 0) {
-            currentStation = 9;
+        if (currentStation != 0) {
+            currentStation --;
         } else {
-            currentStation--;
+            currentStation = maxStation;
         }
     }
 
